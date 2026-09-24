@@ -292,6 +292,9 @@ body {
 }
 
 .online {
+	position: absolute;
+	top: 28px;
+	right: 48px;
 	text-align: right;
 }
 
@@ -311,6 +314,10 @@ body {
 	}
 	.footer {
 		left: 24px;
+		right: 24px;
+	}
+	.online {
+		top: 20px;
 		right: 24px;
 	}
 	.subtitle {
