@@ -18,12 +18,36 @@ jobs:
         env:
           SCHEMA_GITHUB_TOKEN: ${{ secrets.SCHEMA_GITHUB_TOKEN }}
         run: |
-          curl -fsSL \
+          if [ -z "$SCHEMA_GITHUB_TOKEN" ]; then
+            echo "SCHEMA_GITHUB_TOKEN is empty. Add it under Settings → Secrets and variables → Actions on this repository."
+            exit 1
+          fi
+
+          repo_status=$(curl -s -o repo.json -w "%{http_code}" \
+            -H "Authorization: Bearer ${SCHEMA_GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "User-Agent: seow-loading" \
+            "https://api.github.com/repos/DarklandServers/ixseow")
+          echo "Repo lookup status: ${repo_status}"
+          if [ "$repo_status" != "200" ]; then
+            echo "This token cannot see DarklandServers/ixseow."
+            echo "Create the token with resource owner DarklandServers, repository ixseow only, and Contents set to Read-only."
+            echo "If the organization uses SAML SSO, authorize the token for DarklandServers."
+            echo "If the organization approves fine-grained tokens, an owner must approve it."
+            exit 1
+          fi
+
+          file_status=$(curl -s -o schema.lua -w "%{http_code}" \
             -H "Authorization: Bearer ${SCHEMA_GITHUB_TOKEN}" \
             -H "Accept: application/vnd.github.raw" \
             -H "User-Agent: seow-loading" \
-            "https://api.github.com/repos/DarklandServers/ixseow/contents/schema/sh_schema.lua?ref=main" \
-            -o schema.lua
+            "https://api.github.com/repos/DarklandServers/ixseow/contents/schema/sh_schema.lua?ref=main")
+          echo "Schema file status: ${file_status}"
+          if [ "$file_status" != "200" ]; then
+            echo "The token can see the repo, but schema/sh_schema.lua was not found on main."
+            exit 1
+          fi
+
           node -e "const fs=require('fs'); const progress=require('./js/progress.js'); const version=progress.parseSchemaVersion(fs.readFileSync('schema.lua','utf8')); if(!version) process.exit(1); fs.writeFileSync('version.json', JSON.stringify({version: version}, null, 2) + '\n');"
 
       - name: Publish version.json

@@ -8,7 +8,16 @@
   <script src="js/bridge.js"></script>
 </head>
 <body>
-  <img class="bg" src="bg.png" alt="">
+  <video class="bg" id="bg" autoplay muted loop playsinline poster="bg.png">
+    <source src="bg-vid.mp4" type="video/mp4">
+  </video>
+  <script>
+    var background = document.getElementById("bg");
+    if (background && background.play) {
+      background.muted = true;
+      background.play().catch(function () {});
+    }
+  </script>
   <div class="shade" aria-hidden="true"></div>
 
   <main class="panel">
