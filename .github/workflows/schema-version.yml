@@ -1,0 +1,35 @@
+name: Update schema version
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read Schema.version from the private repo
+        env:
+          SCHEMA_GITHUB_TOKEN: ${{ secrets.SCHEMA_GITHUB_TOKEN }}
+        run: |
+          curl -fsSL \
+            -H "Authorization: Bearer ${SCHEMA_GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github.raw" \
+            -H "User-Agent: seow-loading" \
+            "https://api.github.com/repos/DarklandServers/ixseow/contents/schema/sh_schema.lua?ref=main" \
+            -o schema.lua
+          node -e "const fs=require('fs'); const progress=require('./js/progress.js'); const version=progress.parseSchemaVersion(fs.readFileSync('schema.lua','utf8')); if(!version) process.exit(1); fs.writeFileSync('version.json', JSON.stringify({version: version}, null, 2) + '\n');"
+
+      - name: Publish version.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add version.json
+          git diff --cached --quiet || git commit -m "Update schema build version"
+          git push

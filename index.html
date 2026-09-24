@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEOW Roleplay</title>
+  <link rel="stylesheet" href="css/loading.css">
+  <script src="js/bridge.js"></script>
+</head>
+<body>
+  <img class="bg" src="bg.png" alt="">
+  <div class="shade" aria-hidden="true"></div>
+
+  <main class="panel">
+    <h1 class="title" id="title">SEOW</h1>
+    <div class="subtitle-row">
+      <p class="subtitle" id="subtitle">ROLEPLAY</p>
+      <span class="accent" aria-hidden="true"></span>
+    </div>
+    <p class="status" id="status-line">Connecting to server...</p>
+    <div class="bar" aria-hidden="true"><span class="bar-fill" id="bar-fill"></span></div>
+    <p class="file" id="file-line" hidden></p>
+    <ul class="steps" id="steps"></ul>
+  </main>
+
+  <footer class="footer">
+    <div class="lockup">
+      <span class="tick" aria-hidden="true"></span>
+      <div>
+        <p class="brand">SEOW Roleplay</p>
+        <p class="tagline" id="tagline"></p>
+      </div>
+    </div>
+    <div class="player" id="player" hidden>
+      <img class="player-avatar" id="player-avatar" alt="">
+      <div>
+        <p class="player-name" id="player-name"></p>
+        <p class="player-id" id="player-id"></p>
+      </div>
+    </div>
+    <div class="online">
+      <span class="live-dot" aria-hidden="true"></span>
+      <div>
+        <p class="online-label">Server online</p>
+        <p class="build" id="build"></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/progress.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/gmod.js"></script>
+  <script src="js/preview.js"></script>
+</body>
+</html>
