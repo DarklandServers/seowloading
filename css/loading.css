@@ -44,6 +44,7 @@ body {
 	object-fit: cover;
 	object-position: center center;
 	pointer-events: none;
+	background-color: #05070c;
 }
 
 .shade {

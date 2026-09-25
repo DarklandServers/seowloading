@@ -4,18 +4,40 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SEOW Roleplay</title>
+  <link rel="preload" href="bg-vid.mp4" as="video" type="video/mp4">
+  <link rel="preload" href="bg.png" as="image" type="image/png">
+  <style>
+    html, body, .bg { background-color: #05070c; }
+  </style>
   <link rel="stylesheet" href="css/loading.css">
   <script src="js/bridge.js"></script>
 </head>
 <body>
-  <video class="bg" id="bg" autoplay muted loop playsinline poster="bg.png">
-    <source src="bg-vid.mp4" type="video/mp4">
-  </video>
+  <video class="bg" id="bg" src="bg-vid.mp4" autoplay muted loop playsinline preload="auto" poster="bg.png" fetchpriority="high"></video>
   <script>
     var background = document.getElementById("bg");
     if (background && background.play) {
       background.muted = true;
-      background.play().catch(function () {});
+      var attempts = 0;
+      var kick = function () {
+        if (!background.paused && background.currentTime > 0) return;
+        var pending = background.play();
+        if (pending && pending.catch) pending.catch(function () {});
+      };
+      background.addEventListener("loadeddata", kick);
+      background.addEventListener("canplay", kick);
+      kick();
+      var timer = setInterval(function () {
+        attempts += 1;
+        if ((!background.paused && background.currentTime > 0) || attempts > 24) {
+          clearInterval(timer);
+          return;
+        }
+        kick();
+      }, 250);
+    }
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(function () {});
     }
   </script>
   <div class="shade" aria-hidden="true"></div>
