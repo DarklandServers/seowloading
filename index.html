@@ -4,16 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SEOW Roleplay</title>
-  <link rel="preload" href="bg-vid.mp4" as="video" type="video/mp4">
-  <link rel="preload" href="bg.png" as="image" type="image/png">
+  <link rel="preload" href="bg-vid.webm?v=1.0.1" as="video" type="video/webm">
+  <link rel="preload" href="bg.png?v=1.0.1" as="image" type="image/png">
   <style>
     html, body, .bg { background-color: #05070c; }
   </style>
-  <link rel="stylesheet" href="css/loading.css">
-  <script src="js/bridge.js"></script>
+  <link rel="stylesheet" href="css/loading.css?v=1.0.1">
+  <script src="js/bridge.js?v=1.0.1"></script>
 </head>
 <body>
-  <video class="bg" id="bg" src="bg-vid.mp4" autoplay muted loop playsinline preload="auto" poster="bg.png" fetchpriority="high"></video>
+  <video class="bg" id="bg" autoplay muted loop playsinline preload="auto" poster="bg.png?v=1.0.1" fetchpriority="high">
+    <source src="bg-vid.webm?v=1.0.1" type="video/webm">
+    <source src="bg-vid.mp4?v=1.0.1" type="video/mp4">
+  </video>
   <script>
     var background = document.getElementById("bg");
     if (background && background.play) {
@@ -37,7 +40,7 @@
       }, 250);
     }
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js").catch(function () {});
+      navigator.serviceWorker.register("sw.js?v=1.0.1").catch(function () {});
     }
   </script>
   <div class="shade" aria-hidden="true"></div>
@@ -79,10 +82,10 @@
     </div>
   </div>
 
-  <script src="js/progress.js"></script>
-  <script src="js/config.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/gmod.js"></script>
-  <script src="js/preview.js"></script>
+  <script src="js/progress.js?v=1.0.1"></script>
+  <script src="js/config.js?v=1.0.1"></script>
+  <script src="js/ui.js?v=1.0.1"></script>
+  <script src="js/gmod.js?v=1.0.1"></script>
+  <script src="js/preview.js?v=1.0.1"></script>
 </body>
 </html>

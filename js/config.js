@@ -1,4 +1,4 @@
-// sv_loadingurl "https://your-host/index.html?map=%m&steamid=%s"
+// sv_loadingurl "https://darklandservers.github.io/seowloading/index.html?v=1.0.1&map=%m&steamid=%s"
 window.LoadingConfig = {
 	title: 'SEOW',
 	subtitle: 'ROLEPLAY',
