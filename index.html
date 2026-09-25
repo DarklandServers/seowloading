@@ -4,43 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SEOW Roleplay</title>
-  <link rel="preload" href="bg-vid.webm?v=1.0.2" as="video" type="video/webm">
-  <link rel="preload" href="bg.png?v=1.0.2" as="image" type="image/png">
+  <link rel="preload" href="bg.png?v=1.0.4" as="image" type="image/png">
   <style>
     html, body, .bg { background-color: #05070c; }
   </style>
-  <link rel="stylesheet" href="css/loading.css?v=1.0.2">
-  <script src="js/bridge.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="css/loading.css?v=1.0.4">
+  <script src="js/bridge.js?v=1.0.4"></script>
 </head>
 <body>
-  <video class="bg" id="bg" autoplay muted loop playsinline preload="auto" poster="bg.png?v=1.0.2" fetchpriority="high">
-    <source src="bg-vid.webm?v=1.0.2" type="video/webm">
-    <source src="bg-vid.mp4?v=1.0.2" type="video/mp4">
-  </video>
+  <img class="bg" id="bg" src="bg.png?v=1.0.4" alt="">
   <script>
-    var background = document.getElementById("bg");
-    if (background && background.play) {
-      background.muted = true;
-      var attempts = 0;
-      var kick = function () {
-        if (!background.paused && background.currentTime > 0) return;
-        var pending = background.play();
-        if (pending && pending.catch) pending.catch(function () {});
-      };
-      background.addEventListener("loadeddata", kick);
-      background.addEventListener("canplay", kick);
-      kick();
-      var timer = setInterval(function () {
-        attempts += 1;
-        if ((!background.paused && background.currentTime > 0) || attempts > 24) {
-          clearInterval(timer);
-          return;
-        }
-        kick();
-      }, 250);
-    }
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js?v=1.0.2").catch(function () {});
+      navigator.serviceWorker.register("sw.js?v=1.0.4").catch(function () {});
     }
   </script>
   <div class="shade" aria-hidden="true"></div>
@@ -82,10 +57,10 @@
     </div>
   </div>
 
-  <script src="js/progress.js?v=1.0.2"></script>
-  <script src="js/config.js?v=1.0.2"></script>
-  <script src="js/ui.js?v=1.0.2"></script>
-  <script src="js/gmod.js?v=1.0.2"></script>
-  <script src="js/preview.js?v=1.0.2"></script>
+  <script src="js/progress.js?v=1.0.4"></script>
+  <script src="js/config.js?v=1.0.4"></script>
+  <script src="js/ui.js?v=1.0.4"></script>
+  <script src="js/gmod.js?v=1.0.4"></script>
+  <script src="js/preview.js?v=1.0.4"></script>
 </body>
 </html>

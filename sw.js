@@ -1,4 +1,4 @@
-var CACHE = "seow-loading-v1.0.2";
+var CACHE = "seow-loading-v1.0.4";
 
 self.addEventListener("install", function (event) {
   event.waitUntil(
