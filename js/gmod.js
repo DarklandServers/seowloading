@@ -26,7 +26,12 @@
     },
     SetStatusChanged: function (status) {
       window.__gmodLive = true;
-      ui.setStatus(status);
+      var text = String(status || "");
+      if (!text.trim() || window.LoadingProgress.isPhaseStatus(text)) {
+        ui.setStatus(text);
+        return;
+      }
+      ui.setFile(window.LoadingProgress.contentLabel(text));
     }
   };
 
